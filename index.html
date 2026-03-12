@@ -31,9 +31,28 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 @media(min-width:500px){body{font-size:16px;line-height:1.65}}
 
-#urgency-bar{background:linear-gradient(90deg,#6b0f0f,#9b1f1f,#6b0f0f);text-align:center;padding:9px 16px;font-size:.82rem;letter-spacing:.04em;position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,80,80,.25)}
-#urgency-bar span{color:#ffa0a0}
-#timer{font-weight:700;color:#ff6b6b;font-family:monospace;font-size:.95rem}
+#urgency-bar{background:linear-gradient(90deg,#6b0f0f,#9b1f1f,#6b0f0f);text-align:center;padding:10px 16px;font-size:.8rem;letter-spacing:.04em;position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,80,80,.25)}
+#urgency-bar .slots-info{display:flex;align-items:center;justify-content:center;gap:8px;color:#fff}
+#urgency-bar .slots-count{font-weight:700;color:#ffa0a0;font-family:monospace;font-size:.9rem}
+#urgency-bar .slots-bar-container{display:inline-block;width:120px;height:6px;background:rgba(0,0,0,.3);border-radius:3px;overflow:hidden;margin-left:6px;position:relative;top:-1px}
+#urgency-bar .slots-bar{height:100%;background:linear-gradient(90deg,#ff6b6b,#ffa0a0);border-radius:3px;transition:width .5s ease}
+#timer{font-weight:700;color:#ff6b6b;font-family:monospace;font-size:.9rem;margin-left:6px}
+
+/* Toast Notifications */
+.toast-container{position:fixed;bottom:20px;left:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+@media(max-width:500px){.toast-container{bottom:10px;left:10px;right:10px}}
+.toast{background:rgba(15,20,35,.95);border:1px solid rgba(201,148,58,.3);border-left:3px solid var(--gold);border-radius:8px;padding:12px 14px;max-width:320px;box-shadow:0 8px 24px rgba(0,0,0,.5);pointer-events:auto;animation:slideIn .4s ease;backdrop-filter:blur(10px)}
+.toast.removing{animation:slideOut .4s ease forwards}
+.toast-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.toast-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--bg)}
+.toast-content{font-size:.8rem;color:var(--white);line-height:1.4}
+.toast-content strong{color:var(--gold-light);font-weight:600}
+.toast-time{font-size:.65rem;color:var(--muted);margin-top:2px}
+.toast-pulse{position:absolute;top:8px;right:8px;width:8px;height:8px;background:#00c48c;border-radius:50%;animation:pulse 2s infinite}
+
+@keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-20px)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.1)}}
 
 .container{max-width:640px;margin:0 auto;padding:0 18px}
 section{padding:56px 0}
@@ -78,8 +97,8 @@ h1{font-size:clamp(1.6rem,5.5vw,2.8rem);font-weight:800;line-height:1.15;letter-
 .divider{width:48px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:.8rem auto 0}
 
 #prova{background:var(--bg3)}
-.proof-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-@media(min-width:500px){.proof-grid{grid-template-columns:repeat(3,1fr)}}
+.proof-grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:400px;margin:0 auto}
+@media(min-width:500px){.proof-grid{grid-template-columns:repeat(3,1fr);max-width:none}}
 .proof-card{border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--bg2);position:relative;aspect-ratio:auto}
 .proof-card img{width:100%;height:100%;object-fit:contain;display:block;min-height:280px;background:#0d1525}
 @media(min-width:500px){.proof-card img{min-height:320px}}
@@ -149,7 +168,13 @@ footer a{color:var(--muted);text-decoration:none}
 <body>
 
 <div id="urgency-bar">
-  ⚡ Preço promocional expira em <span><span id="timer">15:00</span></span> — Garanta agora
+  <div class="slots-info">
+    🔥 <span class="slots-count"><span id="slots-current">3819</span>/<span id="slots-total">4000</span></span> vagas ocupadas
+    <div class="slots-bar-container">
+      <div class="slots-bar" id="slots-bar" style="width: 95.5%"></div>
+    </div>
+    ⏱ <span id="timer">15:00</span>
+  </div>
 </div>
 
 <section id="hero">
@@ -323,7 +348,7 @@ footer a{color:var(--muted);text-decoration:none}
   <div class="container">
     <div class="author-inner">
       <div class="author-photo">
-        <img src="assets/images/nilson.jpg" alt="Nilson Dias" loading="lazy" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Nilson+Dias&background=C9943A&color=fff&size=120&font-size=0.4'">
+        <img src="assets/images/nilson-instagram.jpg" alt="Nilson Dias" loading="lazy" onerror="this.onerror=null;this.src='assets/images/nilson.jpg'">
       </div>
       <div class="author-name">Nilson Dias</div>
       <p class="author-bio">Especialista em investimentos internacionais com mais de 10 anos de experiência. Fundador da <span class="gold">Família Investidora</span> e mentor de mais de 3.000 famílias que transformaram sua vida financeira com ativos globais. Pai, investidor e alguém que decidiu blindar o futuro da família com decisões inteligentes.</p>
@@ -392,6 +417,9 @@ footer a{color:var(--muted);text-decoration:none}
   <p style="margin-top:.8rem;font-size:.7rem;color:var(--muted);opacity:.7">Este produto é vendido e suportado por Skala Lançamentos Digitais LTDA</p>
 </footer>
 
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
 <script>
 (function(){
   var D=15*60,k='nd_timer_v2',e=localStorage.getItem(k);
@@ -404,6 +432,100 @@ footer a{color:var(--muted);text-decoration:none}
     if(t1)t1.textContent=str;if(t2)t2.textContent=str;
   }
   upd();setInterval(upd,1000);
+})();
+
+(function(){
+  // Sistema de vagas com persistência
+  var SK='nd_slots_v2',ST='nd_visits_v2';
+  var totalSlots=4000;
+  var initialSlots=3754;
+
+  function getSlots(){
+    var stored=localStorage.getItem(SK);
+    var visits=parseInt(localStorage.getItem(ST)||0);
+
+    if(!stored){
+      var slots=initialSlots;
+      localStorage.setItem(SK,slots);
+      localStorage.setItem(ST,'1');
+      return slots;
+    }
+
+    var currentSlots=parseInt(stored);
+    visits++;
+    localStorage.setItem(ST,visits.toString());
+
+    // Incrementa vagas a cada visita (simula interesse)
+    var increment=Math.min(Math.floor(Math.random()*3)+2,20);
+    currentSlots=Math.min(currentSlots+increment,totalSlots-1);
+
+    localStorage.setItem(SK,currentSlots.toString());
+    return currentSlots;
+  }
+
+  function updateSlotsDisplay(){
+    var current=getSlots();
+    var percentage=((current/totalSlots)*100).toFixed(1);
+
+    var curEl=document.getElementById('slots-current');
+    var barEl=document.getElementById('slots-bar');
+
+    if(curEl)curEl.textContent=current;
+    if(barEl)barEl.style.width=percentage+'%';
+  }
+
+  updateSlotsDisplay();
+
+  // Sistema de Toast Notifications
+  var toastContainer=document.getElementById('toast-container');
+  var toastShown='nd_toast_shown';
+  var lastToastTime=localStorage.getItem(toastShown);
+  var now=Date.now();
+
+  // Mostra toast apenas se passou mais de 30 minutos desde o último
+  var shouldShowToast=!lastToastTime||(now-parseInt(lastToastTime))>1800000;
+
+  if(shouldShowToast){
+    var messages=[
+      {name:'Carlos de São Paulo,SP',action:'acabou de ver o guia completo',time:'há 2 minutos'},
+      {name:'Ana de Curitiba,PR',action:'interessada no método',time:'há 4 minutos'},
+      {name:'Roberto de Rio de Janeiro,RJ',action:'lendo sobre investimentos globais',time:'há 1 minuto'},
+      {name:'Fernanda de Belo Horizonte,MG',action:'visualizando os capítulos',time:'há 3 minutos'},
+      {name:'Paulo de Salvador,BA',action:'na página de pagamento',time:'agora'},
+      {name:'Juliana de Porto Alegre,RS',action:'analisando o método',time:'há 5 minutos'},
+      {name:'Marcos de Fortaleza,CE',action:'interessado em dolarizar',time:'há 1 minuto'},
+      {name:'Luciana de Recife,PE',action:'vendo os resultados',time:'há 2 minutos'}
+    ];
+
+    function showToast(){
+      if(!toastContainer)return;
+
+      var msg=messages[Math.floor(Math.random()*messages.length)];
+      var initials=msg.name.split(' ')[0][0]+(msg.name.split(' ')[1]||'')[0];
+
+      var toast=document.createElement('div');
+      toast.className='toast';
+      toast.innerHTML='<div class="toast-pulse"></div><div class="toast-header"><div class="toast-avatar">'+initials+'</div></div><div class="toast-content"><strong>'+msg.name+'</strong> '+msg.action+'<div class="toast-time">'+msg.time+'</div></div>';
+
+      toastContainer.appendChild(toast);
+
+      setTimeout(function(){
+        toast.classList.add('removing');
+        setTimeout(function(){if(toast.parentNode)toast.parentNode.removeChild(toast)},400);
+      },8000);
+
+      localStorage.setItem(toastShown,now.toString());
+    }
+
+    // Primeiro toast após 8 segundos
+    setTimeout(showToast,8000);
+
+    // Toasts adicionais durante a navegação
+    var toastTimes=[20000,35000,55000,80000,110000];
+    toastTimes.forEach(function(delay){
+      setTimeout(showToast,delay);
+    });
+  }
 })();
 (function(){
   var btn=document.getElementById('yt-play');

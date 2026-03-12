@@ -154,8 +154,10 @@ h1{font-size:clamp(1.6rem,5.5vw,2.8rem);font-weight:800;line-height:1.15;letter-
 .guarantee-box p{font-size:.82rem;color:var(--muted)}
 
 #cta-final{background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(201,148,58,.1),transparent 60%);text-align:center}
-.cta-final-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:20px;padding:40px 24px;position:relative;overflow:hidden}
-.cta-final-box::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:240px;height:240px;background:radial-gradient(circle,rgba(201,148,58,.15),transparent 65%);pointer-events:none}
+.cta-final-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:20px;padding:40px 24px;position:relative;overflow:hidden;display:grid;grid-template-columns:1fr;gap:32px}
+@media(min-width:600px){.cta-final-box{grid-template-columns:1fr 1fr;align-items:center;padding:32px 20px}}
+.cta-final-box::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:240px;height:240px;background:radial-gradient(circle,rgba(201,148,58,.15),transparent 65%);pointer-events:none;z-index:0}
+.cta-final-box>div{position:relative;z-index:1}
 
 footer{padding:28px 20px;text-align:center;font-size:.72rem;color:var(--muted);border-top:1px solid var(--border2);line-height:1.9}
 footer a{color:var(--muted);text-decoration:none}
@@ -180,8 +182,8 @@ footer a{color:var(--muted);text-decoration:none}
 <section id="hero">
   <div class="container">
     <div class="hero-badge fu">✦ Guia Exclusivo · Nilson Dias</div>
-    <h1 class="fu d1">Como brasileiros comuns estão criando renda em dólar investindo no exterior — mesmo começando com pouco dinheiro</h1>
-    <p class="hero-sub fu d2">O método simples que já ajudou <strong>+3.000 famílias</strong> a proteger seu patrimônio da instabilidade brasileira e construir renda em <strong>dólar, euro e libra</strong>.</p>
+    <h1 class="fu d1">Como brasileiros comuns estão criando renda em dólar investindo no exterior</h1>
+    <p class="hero-sub fu d2">O método simples e automático para proteger seu patrimônio da instabilidade brasileira e construir renda em <strong>dólar, euro e libra</strong>.</p>
     <div class="sp-strip fu d2">
       <div class="avatars"><i>MR</i><i>JS</i><i>CA</i><i>+</i></div>
       <span>+3.000 famílias já aplicando a estratégia</span>
@@ -201,19 +203,6 @@ footer a{color:var(--muted);text-decoration:none}
       QUERO PROTEGER MEU DINHEIRO EM DÓLAR
     </a>
     <p class="guarantee fu d4">🔒 Garantia de 7 dias · Acesso imediato após pagamento</p>
-  </div>
-</section>
-
-<!-- MOCKUP DO LIVRO -->
-<section id="mockup" style="padding:48px 0;background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%)">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:2rem">
-      <p style="font-size:.8rem;color:var(--gold-light);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.6rem">✦ Método Validado</p>
-      <h2 style="font-size:clamp(1.3rem,4vw,1.9rem);font-weight:700;color:var(--white);line-height:1.2">O guia que está transformando a vida de milhares de brasileiros</h2>
-    </div>
-    <div style="max-width:500px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 24px 64px rgba(0,0,0,.5);background:var(--bg2)">
-      <img src="assets/images/mockup-livro.webp" alt="Mockup do Guia do Investidor Global" style="width:100%;height:auto;display:block" loading="eager" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22600%22%3E%3Crect fill=%22%23101828%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%238a93a8%22 font-size=%2216%22%3EMockup do Guia%3C/text%3E%3C/svg%3E'">
-    </div>
   </div>
 </section>
 
@@ -361,39 +350,40 @@ footer a{color:var(--muted);text-decoration:none}
   </div>
 </section>
 
-<section id="preco">
-  <div class="container">
-    <div class="price-anchor-box">
-      <p class="anchor-from">Consultorias como essa custam mais de <del>R$ 1.000</del></p>
-      <p style="font-size:.85rem;color:var(--muted);margin-bottom:.6rem">Mas hoje você tem acesso ao guia completo por apenas</p>
-      <span class="anchor-now">R$ 68</span>
-      <p class="anchor-note">Pagamento único · Acesso imediato · Sem mensalidade</p>
-      <a href="https://pay.hotmart.com/T100631735T?checkoutMode=10" class="cta-btn" id="cta-preco">QUERO MEU GUIA AGORA</a>
-      <div class="guarantee-box">
-        <div class="icon">🛡️</div>
-        <div>
-          <h4>Garantia incondicional de 7 dias</h4>
-          <p>Se você não gostar do conteúdo por qualquer motivo, basta pedir reembolso e devolvemos 100% do valor. Sem perguntas.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="cta-final">
   <div class="container">
     <div class="cta-final-box">
-      <div class="hero-badge" style="margin-bottom:1rem">⏱ Oferta por tempo limitado</div>
-      <h2 style="font-size:clamp(1.4rem,4vw,1.9rem);margin-bottom:.6rem;background:linear-gradient(135deg,#fff,var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Seu patrimônio não pode<br>esperar mais um dia</h2>
-      <p style="color:var(--muted);font-size:.9rem;margin-bottom:1.4rem;max-width:420px;margin-left:auto;margin-right:auto">Enquanto o real perde valor, famílias inteligentes já estão construindo renda em dólar. Este guia é o seu primeiro passo.</p>
-      <div class="price-row" style="margin-bottom:1.2rem">
-        <span class="price-old">R$ 148</span>
-        <span class="price-new">R$ 68</span>
-        <span class="price-badge">54% OFF</span>
+      <!-- Mockup pequeno -->
+      <div style="text-align:center">
+        <div style="max-width:280px;margin:0 auto;border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 20px 50px rgba(0,0,0,.5);background:var(--bg2)">
+          <img src="assets/images/mockup-livro.webp" alt="Guia do Investidor Global" style="width:100%;height:auto;display:block" loading="lazy">
+        </div>
       </div>
-      <a href="https://pay.hotmart.com/T100631735T?checkoutMode=10" class="cta-btn" id="cta-bottom">QUERO PROTEGER MEU DINHEIRO EM DÓLAR</a>
-      <p class="guarantee" style="margin-top:.8rem">🔒 Garantia de 7 dias · Acesso imediato</p>
-      <p style="font-size:.72rem;color:var(--muted);margin-top:1.2rem">⏱ Oferta expira em: <span id="timer2" style="color:#ff6b6b;font-weight:700;font-family:monospace"></span></p>
+
+      <!-- Conteúdo do CTA -->
+      <div style="text-align:center">
+        <div class="hero-badge" style="margin-bottom:1rem">⏱ Oferta por tempo limitado</div>
+        <h2 style="font-size:clamp(1.4rem,4vw,1.9rem);margin-bottom:.6rem;background:linear-gradient(135deg,#fff,var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Seu patrimônio não pode<br>esperar mais um dia</h2>
+        <p style="color:var(--muted);font-size:.9rem;margin-bottom:1.4rem">Enquanto o real perde valor, famílias inteligentes já estão construindo renda em dólar. Este guia é o seu primeiro passo.</p>
+
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:.4rem">Consultorias como essa custam mais de <del style="color:var(--red)">R$ 1.000</del></p>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:.8rem">Mas hoje você tem acesso ao guia completo por apenas</p>
+
+        <div style="font-size:clamp(2.4rem,6vw,3.2rem);font-weight:700;color:var(--gold-light);line-height:1;margin:.2rem 0 .6rem">R$ 68</div>
+        <p style="font-size:.78rem;color:var(--muted);margin-bottom:1.4rem">Pagamento único · Acesso imediato · Sem mensalidade</p>
+
+        <a href="https://pay.hotmart.com/T100631735T?checkoutMode=10" class="cta-btn" id="cta-bottom" style="margin-bottom:1rem">QUERO PROTEGER MEU DINHEIRO EM DÓLAR</a>
+
+        <div class="guarantee-box" style="display:flex;align-items:flex-start;gap:12px;background:rgba(0,196,140,.06);border:1px solid rgba(0,196,140,.2);border-radius:var(--r);padding:14px;margin-top:1rem;text-align:left">
+          <div style="font-size:1.5rem;min-width:28px">🛡️</div>
+          <div>
+            <h4 style="font-size:.85rem;color:var(--green);margin-bottom:.2rem">Garantia incondicional de 7 dias</h4>
+            <p style="font-size:.78rem;color:var(--muted);margin:0">Se você não gostar do conteúdo por qualquer motivo, basta pedir reembolso e devolvemos 100% do valor. Sem perguntas.</p>
+          </div>
+        </div>
+
+        <p style="font-size:.72rem;color:var(--muted);margin-top:1.2rem">⏱ Oferta expira em: <span id="timer2" style="color:#ff6b6b;font-weight:700;font-family:monospace"></span></p>
+      </div>
     </div>
   </div>
 </section>

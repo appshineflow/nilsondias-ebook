@@ -33,9 +33,13 @@ body{background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacS
 @media(min-width:500px){body{font-size:16px;line-height:1.65}}
 
 #urgency-bar{background:linear-gradient(90deg,#6b0f0f,#9b1f1f,#6b0f0f);text-align:center;padding:10px 16px;font-size:.8rem;letter-spacing:.04em;position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,80,80,.25)}
-#urgency-bar .slots-info{display:flex;align-items:center;justify-content:center;gap:8px;color:#fff}
+#urgency-bar .slots-info{display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;flex-wrap:wrap}
 #urgency-bar .lot-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);padding:4px 12px;border-radius:6px;font-weight:700;font-size:.85rem;color:#ffa0a0;display:inline-flex;align-items:center;gap:6px}
-#urgency-bar .price-highlight{font-size:1.1rem;font-weight:700;color:#fff}
+#urgency-bar .lot-progress{display:inline-flex;align-items:center;gap:6px;font-size:.8rem}
+#urgency-bar .lot-count{font-weight:700;color:#fff;font-family:monospace}
+#urgency-bar .lot-bar{display:inline-block;width:80px;height:4px;background:rgba(0,0,0,.3);border-radius:2px;overflow:hidden;position:relative;top:-1px}
+#urgency-bar .lot-bar-fill{height:100%;background:linear-gradient(90deg,#ff6b6b,#ffa0a0);border-radius:2px;transition:width .3s ease}
+#urgency-bar .price-highlight{font-size:1rem;font-weight:700;color:#fff}
 .lot-pop{animation:lotPop .4s ease}
 @keyframes lotPop{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
 
@@ -178,7 +182,11 @@ footer a{color:var(--muted);text-decoration:none}
 
 <div id="urgency-bar">
   <div class="slots-info">
-    🔥 <span class="lot-badge">📦 Lote <span id="lot-number">3</span> · Por apenas <span class="price-highlight" id="lot-price">R$ 68</span></span>
+    🔥 <span class="lot-badge">📦 Lote <span id="lot-number">3</span> · <span id="lot-current">2743</span>/<span id="lot-total">3500</span></span>
+    <div class="lot-progress">
+      <span class="lot-count"><span class="lot-count" id="lot-remaining">757</span> restantes</span>
+      <div class="lot-bar"><div class="lot-bar-fill" id="lot-bar-fill" style="width: 78.4%"></div></div>
+    </div>
   </div>
 </div>
 
@@ -358,8 +366,8 @@ footer a{color:var(--muted);text-decoration:none}
     <div class="cta-final-box">
       <!-- Mockup pequeno -->
       <div style="text-align:center">
-        <div style="max-width:180px;margin:0 auto;border-radius:8px;overflow:hidden;border:1px solid var(--border);box-shadow:0 12px 35px rgba(0,0,0,.4);background:var(--bg2);opacity:.85">
-          <img src="assets/images/mockup-livro.webp" alt="Guia do Investidor Global" style="width:100%;height:auto;display:block;max-height:240px;object-fit:cover" loading="lazy">
+        <div style="max-width:180px;margin:0 auto;border-radius:8px;overflow:hidden;border:1px solid var(--border);box-shadow:0 12px 35px rgba(0,0,0,.4);background:var(--bg2);opacity:.85;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center">
+          <img src="assets/images/mockup-livro.webp" alt="Guia do Investidor Global" style="width:100%;height:100%;object-fit:contain;display:block;padding:8px" loading="lazy">
         </div>
       </div>
 
@@ -370,7 +378,7 @@ footer a{color:var(--muted);text-decoration:none}
         <p style="color:var(--muted);font-size:.9rem;margin-bottom:1.4rem">Enquanto o real perde valor, famílias inteligentes já estão construindo renda em dólar. Este guia é o seu primeiro passo.</p>
 
         <p style="font-size:.85rem;color:var(--muted);margin-bottom:.4rem">Consultorias como essa custam mais de <del style="color:var(--red)">R$ 1.000</del></p>
-        <p style="font-size:.8rem;color:var(--muted);margin-bottom:.8rem">Mas hoje você tem acesso ao guia completo por apenas</p>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:.6rem">Lote 3 com preço especial de lan��amento</p>
 
         <div style="font-size:clamp(2.4rem,6vw,3.2rem);font-weight:700;color:var(--gold-light);line-height:1;margin:.2rem 0 .6rem">R$ 68</div>
         <p style="font-size:.78rem;color:var(--muted);margin-bottom:1.4rem">Pagamento único · Acesso imediato · Sem mensalidade</p>
@@ -385,7 +393,7 @@ footer a{color:var(--muted);text-decoration:none}
           </div>
         </div>
 
-        <p style="font-size:.72rem;color:var(--muted);margin-top:1.2rem">📦 Lote 3 · Próximo lote sai por R$ 97</p>
+        <p style="font-size:.72rem;color:var(--muted);margin-top:1.2rem">⚡ Apenas <span id="cta-remaining" style="color:#ff6b6b;font-weight:700">757</span> vagas neste lote · Próximo: R$ 97</p>
       </div>
     </div>
   </div>
@@ -415,36 +423,74 @@ footer a{color:var(--muted);text-decoration:none}
 
 <script>
 (function(){
-  // Sistema de Lotes com animação de vendas
-  var LK='nd_lot_v2',LK='nd_lot_celebration';
+  // Sistema de Lotes com vagas e animação de novos investidores
+  var LK='nd_lot_data_v3';
   var lots=[
-    {num:1,price:27,ended:true},
-    {num:2,price:49,ended:true},
-    {num:3,price:68,ended:false,nextPrice:97}
+    {num:1,slots:1000,price:27,ended:true},
+    {num:2,slots:1000,price:49,ended:true},
+    {num:3,slots:3500,price:68,ended:false}
   ];
 
-  function getCurrentLot(){
+  function getLotData(){
     var stored=localStorage.getItem(LK);
-    if(stored)return parseInt(stored);
-    localStorage.setItem(LK,'3');
-    return 3;
+    if(stored){
+      var data=JSON.parse(stored);
+      if(data.lotNum<=3)return data;
+    }
+
+    // Dados iniciais
+    var data={lotNum:3,current:2743};
+    localStorage.setItem(LK,JSON.stringify(data));
+    return data;
   }
 
-  function getLotPrice(lotNum){
-    var lot=lots.find(l=>l.num===lotNum);
-    return lot?lot.price:68;
+  function updateLotData(increment){
+    var data=getLotData();
+    data.current+=increment;
+
+    // Verifica se lotes anteriores estão completos
+    if(data.lotNum===1){
+      if(data.current>=lots[0].slots){
+        data.lotNum=2;
+        data.current=0;
+      }
+    }else if(data.lotNum===2){
+      if(data.current>=lots[1].slots){
+        data.lotNum=3;
+        data.current=0;
+      }
+    }else if(data.lotNum===3){
+      if(data.current>=lots[2].slots){
+        // Lote 3 completo, vai para lote 4
+        data.lotNum=4;
+        data.current=0;
+      }
+    }
+
+    localStorage.setItem(LK,JSON.stringify(data));
+    return data;
   }
 
   function updateLotDisplay(){
-    var lotNum=getCurrentLot();
-    var price=getLotPrice(lotNum);
+    var data=getLotData();
+    var lot=lots[data.lotNum-1]||lots[2];
+    var remaining=lot.slots-data.current;
+    var percentage=((data.current/lot.slots)*100).toFixed(1);
 
-    var lotEl=document.getElementById('lot-number');
-    var priceEl=document.getElementById('lot-price');
+    var lotNumEl=document.getElementById('lot-number');
+    var currentEl=document.getElementById('lot-current');
+    var totalEl=document.getElementById('lot-total');
+    var remainingEl=document.getElementById('lot-remaining');
+    var barEl=document.getElementById('lot-bar-fill');
+    var ctaRemainingEl=document.getElementById('cta-remaining');
     var badgeEl=document.querySelector('.lot-badge');
 
-    if(lotEl)lotEl.textContent=lotNum;
-    if(priceEl)priceEl.textContent='R$ '+price;
+    if(lotNumEl)lotNumEl.textContent=data.lotNum;
+    if(currentEl)currentEl.textContent=data.current;
+    if(totalEl)totalEl.textContent=lot.slots;
+    if(remainingEl)remainingEl.textContent=remaining;
+    if(barEl)barEl.style.width=percentage+'%';
+    if(ctaRemainingEl)ctaRemainingEl.textContent=remaining;
 
     if(badgeEl){
       badgeEl.classList.remove('lot-pop');
@@ -453,23 +499,27 @@ footer a{color:var(--muted);text-decoration:none}
     }
   }
 
-  // Simula vendas durante a navegação
-  function simulateSale(){
-    var lotNum=getCurrentLot();
-    var lot=lots.find(l=>l.num===lotNum);
+  // Simula novos investidores durante a navegação
+  function simulateNewInvestor(){
+    var data=getLotData();
+    var lot=lots[data.lotNum-1];
 
-    if(lot&&!lot.ended){
+    if(data.current<lot.slots){
+      // Incrementa o contador
+      data=updateLotData(1);
+      updateLotDisplay();
+
       // Cria celebração
       var celeb=document.createElement('div');
       celeb.className='sale-celebration';
-      celeb.innerHTML='<span class="emoji">🎉</span> VENDA REALIZADA!';
+      celeb.innerHTML='<span class="emoji">🌎</span> Novo Investidor Global!';
       document.body.appendChild(celeb);
 
       setTimeout(function(){
         if(celeb.parentNode)celeb.parentNode.removeChild(celeb);
       },1200);
 
-      // Mostra toast de venda
+      // Mostra toast de novo investidor
       var toastContainer=document.getElementById('toast-container');
       if(toastContainer){
         var cities=['São Paulo','Rio de Janeiro','Curitiba','Belo Horizonte','Salvador','Porto Alegre','Fortaleza','Recife'];
@@ -479,7 +529,7 @@ footer a{color:var(--muted);text-decoration:none}
 
         var toast=document.createElement('div');
         toast.className='toast';
-        toast.innerHTML='<div class="toast-pulse"></div><div class="toast-header"><div class="toast-avatar">✓</div></div><div class="toast-content"><strong>'+name+' de '+city+'</strong> acabou de garantir o guia<div class="toast-time">agora mesmo</div></div>';
+        toast.innerHTML='<div class="toast-pulse"></div><div class="toast-header"><div class="toast-avatar">🌎</div></div><div class="toast-content"><strong>'+name+' de '+city+'</strong> acabou de se tornar um Investidor Global<div class="toast-time">agora mesmo</div></div>';
 
         toastContainer.appendChild(toast);
 
@@ -493,18 +543,18 @@ footer a{color:var(--muted);text-decoration:none}
 
   updateLotDisplay();
 
-  // Simula vendas aleatórias entre 10-30 segundos
-  function scheduleNextSale(){
+  // Simula novos investidores aleatórios entre 10-30 segundos
+  function scheduleNextInvestor(){
     var delay=Math.random()*20000+10000;
     setTimeout(function(){
-      simulateSale();
-      scheduleNextSale();
+      simulateNewInvestor();
+      scheduleNextInvestor();
     },delay);
   }
 
-  setTimeout(scheduleNextSale,15000);
+  setTimeout(scheduleNextInvestor,12000);
 
-  // Toast Notifications de interesse (não compra)
+  // Toast Notifications de interesse
   var toastContainer=document.getElementById('toast-container');
   var toastShown='nd_toast_shown';
   var lastToastTime=localStorage.getItem(toastShown);

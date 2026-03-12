@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://i.ytimg.com">
 <link rel="dns-prefetch" href="https://pay.hotmart.com">
 <link rel="dns-prefetch" href="https://connect.facebook.net">
+<link rel="dns-prefetch" href="www.instagram.com">
 <title>Guia do Investidor Global — Nilson Dias</title>
 
 <!-- Meta Pixel -->
@@ -33,10 +34,10 @@ body{background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacS
 
 #urgency-bar{background:linear-gradient(90deg,#6b0f0f,#9b1f1f,#6b0f0f);text-align:center;padding:10px 16px;font-size:.8rem;letter-spacing:.04em;position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,80,80,.25)}
 #urgency-bar .slots-info{display:flex;align-items:center;justify-content:center;gap:8px;color:#fff}
-#urgency-bar .slots-count{font-weight:700;color:#ffa0a0;font-family:monospace;font-size:.9rem}
-#urgency-bar .slots-bar-container{display:inline-block;width:120px;height:6px;background:rgba(0,0,0,.3);border-radius:3px;overflow:hidden;margin-left:6px;position:relative;top:-1px}
-#urgency-bar .slots-bar{height:100%;background:linear-gradient(90deg,#ff6b6b,#ffa0a0);border-radius:3px;transition:width .5s ease}
-#timer{font-weight:700;color:#ff6b6b;font-family:monospace;font-size:.9rem;margin-left:6px}
+#urgency-bar .lot-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);padding:4px 12px;border-radius:6px;font-weight:700;font-size:.85rem;color:#ffa0a0;display:inline-flex;align-items:center;gap:6px}
+#urgency-bar .price-highlight{font-size:1.1rem;font-weight:700;color:#fff}
+.lot-pop{animation:lotPop .4s ease}
+@keyframes lotPop{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
 
 /* Toast Notifications */
 .toast-container{position:fixed;bottom:20px;left:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
@@ -49,6 +50,12 @@ body{background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacS
 .toast-content strong{color:var(--gold-light);font-weight:600}
 .toast-time{font-size:.65rem;color:var(--muted);margin-top:2px}
 .toast-pulse{position:absolute;top:8px;right:8px;width:8px;height:8px;background:#00c48c;border-radius:50%;animation:pulse 2s infinite}
+
+/* Sale Celebration */
+.sale-celebration{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10000;pointer-events:none;font-size:3rem;font-weight:700;color:var(--gold-light);text-shadow:0 0 20px rgba(201,148,58,.8),0 0 40px rgba(201,148,58,.6);animation:celebratePop 1.2s ease forwards}
+.sale-celebration .emoji{display:inline-block;animation:emojiBounce .6s ease .2s}
+@keyframes celebratePop{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}40%{transform:translate(-50%,-50%) scale(.9)}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+@keyframes emojiBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
 
 @keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
 @keyframes slideOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-20px)}}
@@ -171,11 +178,7 @@ footer a{color:var(--muted);text-decoration:none}
 
 <div id="urgency-bar">
   <div class="slots-info">
-    🔥 <span class="slots-count"><span id="slots-current">3819</span>/<span id="slots-total">4000</span></span> vagas ocupadas
-    <div class="slots-bar-container">
-      <div class="slots-bar" id="slots-bar" style="width: 95.5%"></div>
-    </div>
-    ⏱ <span id="timer">15:00</span>
+    🔥 <span class="lot-badge">📦 Lote <span id="lot-number">3</span> · Por apenas <span class="price-highlight" id="lot-price">R$ 68</span></span>
   </div>
 </div>
 
@@ -355,8 +358,8 @@ footer a{color:var(--muted);text-decoration:none}
     <div class="cta-final-box">
       <!-- Mockup pequeno -->
       <div style="text-align:center">
-        <div style="max-width:280px;margin:0 auto;border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 20px 50px rgba(0,0,0,.5);background:var(--bg2)">
-          <img src="assets/images/mockup-livro.webp" alt="Guia do Investidor Global" style="width:100%;height:auto;display:block" loading="lazy">
+        <div style="max-width:180px;margin:0 auto;border-radius:8px;overflow:hidden;border:1px solid var(--border);box-shadow:0 12px 35px rgba(0,0,0,.4);background:var(--bg2);opacity:.85">
+          <img src="assets/images/mockup-livro.webp" alt="Guia do Investidor Global" style="width:100%;height:auto;display:block;max-height:240px;object-fit:cover" loading="lazy">
         </div>
       </div>
 
@@ -382,7 +385,7 @@ footer a{color:var(--muted);text-decoration:none}
           </div>
         </div>
 
-        <p style="font-size:.72rem;color:var(--muted);margin-top:1.2rem">⏱ Oferta expira em: <span id="timer2" style="color:#ff6b6b;font-weight:700;font-family:monospace"></span></p>
+        <p style="font-size:.72rem;color:var(--muted);margin-top:1.2rem">📦 Lote 3 · Próximo lote sai por R$ 97</p>
       </div>
     </div>
   </div>
@@ -412,79 +415,109 @@ footer a{color:var(--muted);text-decoration:none}
 
 <script>
 (function(){
-  var D=15*60,k='nd_timer_v2',e=localStorage.getItem(k);
-  if(!e||Date.now()>+e){e=Date.now()+D*1000;localStorage.setItem(k,e)}
-  function upd(){
-    var l=Math.max(0,Math.floor((+e-Date.now())/1000));
-    if(l===0){e=Date.now()+D*1000;localStorage.setItem(k,e);l=D}
-    var str=(Math.floor(l/60)<10?'0':'')+Math.floor(l/60)+':'+(l%60<10?'0':'')+l%60;
-    var t1=document.getElementById('timer'),t2=document.getElementById('timer2');
-    if(t1)t1.textContent=str;if(t2)t2.textContent=str;
+  // Sistema de Lotes com animação de vendas
+  var LK='nd_lot_v2',LK='nd_lot_celebration';
+  var lots=[
+    {num:1,price:27,ended:true},
+    {num:2,price:49,ended:true},
+    {num:3,price:68,ended:false,nextPrice:97}
+  ];
+
+  function getCurrentLot(){
+    var stored=localStorage.getItem(LK);
+    if(stored)return parseInt(stored);
+    localStorage.setItem(LK,'3');
+    return 3;
   }
-  upd();setInterval(upd,1000);
-})();
 
-(function(){
-  // Sistema de vagas com persistência
-  var SK='nd_slots_v2',ST='nd_visits_v2';
-  var totalSlots=4000;
-  var initialSlots=3754;
+  function getLotPrice(lotNum){
+    var lot=lots.find(l=>l.num===lotNum);
+    return lot?lot.price:68;
+  }
 
-  function getSlots(){
-    var stored=localStorage.getItem(SK);
-    var visits=parseInt(localStorage.getItem(ST)||0);
+  function updateLotDisplay(){
+    var lotNum=getCurrentLot();
+    var price=getLotPrice(lotNum);
 
-    if(!stored){
-      var slots=initialSlots;
-      localStorage.setItem(SK,slots);
-      localStorage.setItem(ST,'1');
-      return slots;
+    var lotEl=document.getElementById('lot-number');
+    var priceEl=document.getElementById('lot-price');
+    var badgeEl=document.querySelector('.lot-badge');
+
+    if(lotEl)lotEl.textContent=lotNum;
+    if(priceEl)priceEl.textContent='R$ '+price;
+
+    if(badgeEl){
+      badgeEl.classList.remove('lot-pop');
+      void badgeEl.offsetWidth;
+      badgeEl.classList.add('lot-pop');
     }
-
-    var currentSlots=parseInt(stored);
-    visits++;
-    localStorage.setItem(ST,visits.toString());
-
-    // Incrementa vagas a cada visita (simula interesse)
-    var increment=Math.min(Math.floor(Math.random()*3)+2,20);
-    currentSlots=Math.min(currentSlots+increment,totalSlots-1);
-
-    localStorage.setItem(SK,currentSlots.toString());
-    return currentSlots;
   }
 
-  function updateSlotsDisplay(){
-    var current=getSlots();
-    var percentage=((current/totalSlots)*100).toFixed(1);
+  // Simula vendas durante a navegação
+  function simulateSale(){
+    var lotNum=getCurrentLot();
+    var lot=lots.find(l=>l.num===lotNum);
 
-    var curEl=document.getElementById('slots-current');
-    var barEl=document.getElementById('slots-bar');
+    if(lot&&!lot.ended){
+      // Cria celebração
+      var celeb=document.createElement('div');
+      celeb.className='sale-celebration';
+      celeb.innerHTML='<span class="emoji">🎉</span> VENDA REALIZADA!';
+      document.body.appendChild(celeb);
 
-    if(curEl)curEl.textContent=current;
-    if(barEl)barEl.style.width=percentage+'%';
+      setTimeout(function(){
+        if(celeb.parentNode)celeb.parentNode.removeChild(celeb);
+      },1200);
+
+      // Mostra toast de venda
+      var toastContainer=document.getElementById('toast-container');
+      if(toastContainer){
+        var cities=['São Paulo','Rio de Janeiro','Curitiba','Belo Horizonte','Salvador','Porto Alegre','Fortaleza','Recife'];
+        var city=cities[Math.floor(Math.random()*cities.length)];
+        var names=['Carlos','Ana','Roberto','Fernanda','Paulo','Juliana','Marcos','Luciana'];
+        var name=names[Math.floor(Math.random()*names.length)];
+
+        var toast=document.createElement('div');
+        toast.className='toast';
+        toast.innerHTML='<div class="toast-pulse"></div><div class="toast-header"><div class="toast-avatar">✓</div></div><div class="toast-content"><strong>'+name+' de '+city+'</strong> acabou de garantir o guia<div class="toast-time">agora mesmo</div></div>';
+
+        toastContainer.appendChild(toast);
+
+        setTimeout(function(){
+          toast.classList.add('removing');
+          setTimeout(function(){if(toast.parentNode)toast.parentNode.removeChild(toast)},400);
+        },6000);
+      }
+    }
   }
 
-  updateSlotsDisplay();
+  updateLotDisplay();
 
-  // Sistema de Toast Notifications
+  // Simula vendas aleatórias entre 10-30 segundos
+  function scheduleNextSale(){
+    var delay=Math.random()*20000+10000;
+    setTimeout(function(){
+      simulateSale();
+      scheduleNextSale();
+    },delay);
+  }
+
+  setTimeout(scheduleNextSale,15000);
+
+  // Toast Notifications de interesse (não compra)
   var toastContainer=document.getElementById('toast-container');
   var toastShown='nd_toast_shown';
   var lastToastTime=localStorage.getItem(toastShown);
   var now=Date.now();
 
-  // Mostra toast apenas se passou mais de 30 minutos desde o último
   var shouldShowToast=!lastToastTime||(now-parseInt(lastToastTime))>1800000;
 
   if(shouldShowToast){
     var messages=[
-      {name:'Carlos de São Paulo,SP',action:'acabou de ver o guia completo',time:'há 2 minutos'},
+      {name:'Carlos de São Paulo,SP',action:'está lendo o guia',time:'há 2 minutos'},
       {name:'Ana de Curitiba,PR',action:'interessada no método',time:'há 4 minutos'},
-      {name:'Roberto de Rio de Janeiro,RJ',action:'lendo sobre investimentos globais',time:'há 1 minuto'},
-      {name:'Fernanda de Belo Horizonte,MG',action:'visualizando os capítulos',time:'há 3 minutos'},
-      {name:'Paulo de Salvador,BA',action:'na página de pagamento',time:'agora'},
-      {name:'Juliana de Porto Alegre,RS',action:'analisando o método',time:'há 5 minutos'},
-      {name:'Marcos de Fortaleza,CE',action:'interessado em dolarizar',time:'há 1 minuto'},
-      {name:'Luciana de Recife,PE',action:'vendo os resultados',time:'há 2 minutos'}
+      {name:'Roberto de Rio de Janeiro,RJ',action:'analisando os capítulos',time:'há 1 minuto'},
+      {name:'Fernanda de Belo Horizonte,MG',action:'vendo os resultados',time:'há 3 minutos'}
     ];
 
     function showToast(){
@@ -507,11 +540,9 @@ footer a{color:var(--muted);text-decoration:none}
       localStorage.setItem(toastShown,now.toString());
     }
 
-    // Primeiro toast após 8 segundos
     setTimeout(showToast,8000);
 
-    // Toasts adicionais durante a navegação
-    var toastTimes=[20000,35000,55000,80000,110000];
+    var toastTimes=[25000,45000,70000];
     toastTimes.forEach(function(delay){
       setTimeout(showToast,delay);
     });

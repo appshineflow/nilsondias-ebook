@@ -52,6 +52,12 @@ body{background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacS
 @keyframes celebratePop{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}40%{transform:translate(-50%,-50%) scale(.9)}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
 @keyframes emojiBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
 
+/* CTA Sticky Mobile */
+.cta-sticky{position:fixed;bottom:0;left:0;right:0;z-index:999;padding:12px 16px;background:linear-gradient(to top,var(--bg) 0%,rgba(6,8,16,.95) 100%);border-top:1px solid var(--border);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;transform:translateY(100%)}
+.cta-sticky.visible{opacity:1;visibility:visible;transform:translateY(0)}
+.cta-sticky .cta-btn{max-width:100%;margin:0;font-size:.85rem;padding:14px 20px;box-shadow:0 4px 16px rgba(0,196,140,.2)}
+@media(min-width:500px){.cta-sticky{display:none}}
+
 @keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
 @keyframes slideOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-20px)}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.1)}}
@@ -327,7 +333,35 @@ footer a{color:var(--muted);text-decoration:none}
   </div>
 </section>
 
-<section id="autor">
+<!-- OBJEÇÕES / MEDO -->
+<section id="objecoes-detailed" style="background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(230,82,82,.06),transparent 70%);padding:48px 0">
+  <div class="container">
+    <div class="section-head">
+      <h2>Você sente que está <span class="gold">perdendo dinheiro</span> todo mês?</h2>
+      <p>A inflação está comendo seu patrimônio silenciosamente. Enquanto você trabalha duro, o real desvaloriza.</p>
+      <div class="divider"></div>
+    </div>
+
+    <div style="max-width:500px;margin:0 auto;background:rgba(230,82,82,.08);border:1px solid rgba(230,82,82,.2);border-radius:12px;padding:20px 18px">
+      <p style="font-size:.9rem;color:var(--white);line-height:1.6;margin-bottom:12px">
+        <span style="color:#ff6b6b;font-weight:700">⚠️ Duro de aceitar mas verdade é:</span>
+      </p>
+      <ul style="list-style:none;margin:0 0 12px 16px;padding:0">
+        <li style="font-size:.85rem;color:var(--muted);line-height:1.5">• O real já perdeu <strong>mais de 30% do valor</strong> nos últimos 5 anos</li>
+        <li style="font-size:.85rem;color:var(--muted);line-height:1.5">• Sua poupancia perde valor <strong>todos os dias</strong> enquanto você dorme</li>
+        <li style="font-size:.85rem;color:var(--muted);line-height:1.5">• Seus investimentos em reais podem <strong>mal rendersizar</strong> nos próximos anos</li>
+      </ul>
+    </div>
+
+    <div style="text-align:center;margin-top:1.6rem">
+      <p style="font-size:1.1rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem">A boa notícia?</p>
+      <p style="font-size:.9rem;color:var(--white);line-height:1.6">Este guia mostra o passo a passo para <strong>blindar seu patrimônio</strong> da instabilidade brasileira e construir renda em moedas fortes. Em menos de 40 minutos de leitura.</p>
+      <a href="#cta-final" style="display:inline-block;color:var(--green);font-weight:700;text-decoration:underline;margin-top:.8rem">Quero proteger meu patrimônio →</a>
+    </div>
+  </div>
+</section>
+
+<section id="para-quem">
   <div class="container">
     <div class="author-inner">
       <div class="author-photo">
@@ -381,6 +415,13 @@ footer a{color:var(--muted);text-decoration:none}
     </div>
   </div>
 </section>
+
+<!-- CTA Sticky Mobile -->
+<div class="cta-sticky" id="cta-sticky">
+  <a href="https://pay.hotmart.com/T100631735T?checkoutMode=10" class="cta-btn" id="cta-sticky-btn">
+    QUERO PROTEGER MEU DINHEIRO EM DÓLAR
+  </a>
+</div>
 
 <footer style="padding:32px 20px 40px;text-align:center;font-size:.72rem;color:var(--muted);border-top:1px solid var(--border2);line-height:1.8;background:var(--bg2)">
   <div style="margin-bottom:1.2rem">
@@ -518,14 +559,23 @@ footer a{color:var(--muted);text-decoration:none}
       // Mostra toast de novo investidor
       var toastContainer=document.getElementById('toast-container');
       if(toastContainer){
-        var cities=['São Paulo','Rio de Janeiro','Curitiba','Belo Horizonte','Salvador','Porto Alegre','Fortaleza','Recife'];
-        var city=cities[Math.floor(Math.random()*cities.length)];
-        var names=['Carlos','Ana','Roberto','Fernanda','Paulo','Juliana','Marcos','Luciana'];
-        var name=names[Math.floor(Math.random()*names.length)];
+        var fullNames=[
+          {first:'Roberto',last:'Silva',city:'São Paulo',uf:'SP'},
+          {first:'Fernanda',last:'Oliveira',city:'Campinas',uf:'SP'},
+          {first:'Carlos',last:'Santos',city:'Curitiba',uf:'PR'},
+          {first:'Ana Paula',last:'Costa',city:'Rio de Janeiro',uf:'RJ'},
+          {first:'Paulo',last:'Ferreira',city:'Belo Horizonte',uf:'MG'},
+          {first:'Juliana',last:'Rodrigues',city:'Salvador',uf:'BA'},
+          {first:'Marcos',last:'Barbosa',city:'Fortaleza',uf:'CE'}
+        ];
+
+        var person=fullNames[Math.floor(Math.random()*fullNames.length)];
+        var times=['agora mesmo','há 15s','há 32s','há 1min'];
+        var time=times[Math.floor(Math.random()*times.length)];
 
         var toast=document.createElement('div');
         toast.className='toast';
-        toast.innerHTML='<div class="toast-pulse"></div><div class="toast-header"><div class="toast-avatar">🌎</div></div><div class="toast-content"><strong>'+name+' de '+city+'</strong> acabou de se tornar um Investidor Global<div class="toast-time">agora mesmo</div></div>';
+        toast.innerHTML='<div class="toast-pulse"></div><div class="toast-header"><div class="toast-avatar">🌎</div></div><div class="toast-content"><strong>'+person.first+' '+person.last+'</strong> de '+person.city+'-'+person.uf+' acabou de se tornar um Investidor Global<div class="toast-time">'+time+'</div></div>';
 
         toastContainer.appendChild(toast);
 
@@ -640,7 +690,35 @@ footer a{color:var(--muted);text-decoration:none}
     scrollTimer=setTimeout(checkSectionVisibility,100);
   });
   setTimeout(checkSectionVisibility,2000);
-})();
+
+  // CTA Sticky Mobile - aparece após scrollar passado do primeiro CTA
+  (function(){
+    var stickyBtn=document.getElementById('cta-sticky');
+    var firstCta=document.getElementById('cta-hero');
+    var shown=false;
+
+    if(!stickyBtn||!firstCta)return;
+
+    function checkSticky(){
+      var rect=firstCta.getBoundingClientRect();
+      var isPast=rect.bottom<0;
+
+      if(isPast&&!shown){
+        stickyBtn.classList.add('visible');
+        shown=true;
+      }else if(!isPast&&shown){
+        stickyBtn.classList.remove('visible');
+        shown=false;
+      }
+    }
+
+    var stickyTimer;
+    window.addEventListener('scroll',function(){
+      clearTimeout(stickyTimer);
+      stickyTimer=setTimeout(checkSticky,50);
+    });
+    checkSticky();
+  })();
 </script>
 </body>
 </html>

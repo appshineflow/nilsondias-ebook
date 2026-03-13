@@ -32,16 +32,7 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 @media(min-width:500px){body{font-size:16px;line-height:1.65}}
 
-#urgency-bar{background:linear-gradient(90deg,#6b0f0f,#9b1f1f,#6b0f0f);text-align:center;padding:10px 16px;font-size:.8rem;letter-spacing:.04em;position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,80,80,.25)}
-#urgency-bar .slots-info{display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;flex-wrap:wrap}
-#urgency-bar .lot-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);padding:4px 12px;border-radius:6px;font-weight:700;font-size:.85rem;color:#ffa0a0;display:inline-flex;align-items:center;gap:6px}
-#urgency-bar .lot-progress{display:inline-flex;align-items:center;gap:6px;font-size:.8rem}
-#urgency-bar .lot-count{font-weight:700;color:#fff;font-family:monospace}
-#urgency-bar .lot-bar{display:inline-block;width:80px;height:4px;background:rgba(0,0,0,.3);border-radius:2px;overflow:hidden;position:relative;top:-1px}
-#urgency-bar .lot-bar-fill{height:100%;background:linear-gradient(90deg,#ff6b6b,#ffa0a0);border-radius:2px;transition:width .3s ease}
-#urgency-bar .price-highlight{font-size:1rem;font-weight:700;color:#fff}
-.lot-pop{animation:lotPop .4s ease}
-@keyframes lotPop{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+/* Barra de urgência removida para não desvendar */
 
 /* Toast Notifications */
 .toast-container{position:fixed;bottom:20px;left:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
@@ -180,15 +171,7 @@ footer a{color:var(--muted);text-decoration:none}
 </head>
 <body>
 
-<div id="urgency-bar">
-  <div class="slots-info">
-    🔥 <span class="lot-badge">📦 Lote <span id="lot-number">3</span> · <span id="lot-current">2743</span>/<span id="lot-total">3500</span></span>
-    <div class="lot-progress">
-      <span class="lot-count"><span class="lot-count" id="lot-remaining">757</span> restantes</span>
-      <div class="lot-bar"><div class="lot-bar-fill" id="lot-bar-fill" style="width: 78.4%"></div></div>
-    </div>
-  </div>
-</div>
+<!-- Barra de urgência removida para não desvendar -->
 
 <section id="hero">
   <div class="container">
@@ -289,7 +272,7 @@ footer a{color:var(--muted);text-decoration:none}
     <ul class="bullet-list">
       <li><div class="ck">✓</div><span>Como funciona a <strong>estratégia dos ETFs globais</strong> — o método usado por investidores para gerar renda constante em dólar</span></li>
       <li><div class="ck">✓</div><span>Por que <strong>investir só no Brasil</strong> pode ser um dos maiores erros financeiros da sua vida — e como escapar disso agora</span></li>
-      <li><div class="ck">✓</div><span>Como ter acesso às <strong>maiores empresas do mundo</strong> (Apple, Microsoft, Coca-Cola) gastando menos de R$100</span></li>
+      <li><div class="ck">✓</div><span>Como ter acesso à <strong>mais de 40 mil das maiores empresas do mundo</strong> em apenas 4 passos simples</span></li>
       <li><div class="ck">✓</div><span>O passo a passo para <strong>abrir sua conta internacional</strong> morando no Brasil, sem burocracia</span></li>
       <li><div class="ck">✓</div><span>Como <strong>enviar dinheiro para o exterior</strong> pagando o mínimo de taxas possível</span></li>
     </ul>
@@ -393,7 +376,7 @@ footer a{color:var(--muted);text-decoration:none}
           </div>
         </div>
 
-        <p style="font-size:.72rem;color:var(--muted);margin-top:1.2rem">⚡ Apenas <span id="cta-remaining" style="color:#ff6b6b;font-weight:700">757</span> vagas neste lote · Próximo: R$ 97</p>
+        <p style="font-size:.72rem;color:var(--muted);margin-top:1.2rem">⚡ Apenas <span id="cta-remaining" style="color:#ff6b6b;font-weight:700">77</span> vagas neste lote · Próximo: R$ 97</p>
       </div>
     </div>
   </div>
@@ -439,7 +422,7 @@ footer a{color:var(--muted);text-decoration:none}
     }
 
     // Dados iniciais
-    var data={lotNum:3,current:2743};
+    var data={lotNum:3,current:3423};
     localStorage.setItem(LK,JSON.stringify(data));
     return data;
   }
@@ -543,16 +526,16 @@ footer a{color:var(--muted);text-decoration:none}
 
   updateLotDisplay();
 
-  // Simula novos investidores aleatórios entre 10-30 segundos
+  // Simula novos investidores aleatórios entre 45-90 segundos
   function scheduleNextInvestor(){
-    var delay=Math.random()*20000+10000;
+    var delay=Math.random()*45000+45000;
     setTimeout(function(){
       simulateNewInvestor();
       scheduleNextInvestor();
     },delay);
   }
 
-  setTimeout(scheduleNextInvestor,12000);
+  setTimeout(scheduleNextInvestor,60000);
 
   // Toast Notifications de interesse
   var toastContainer=document.getElementById('toast-container');
@@ -590,9 +573,9 @@ footer a{color:var(--muted);text-decoration:none}
       localStorage.setItem(toastShown,now.toString());
     }
 
-    setTimeout(showToast,8000);
+    setTimeout(showToast,30000);
 
-    var toastTimes=[25000,45000,70000];
+    var toastTimes=[90000,150000];
     toastTimes.forEach(function(delay){
       setTimeout(showToast,delay);
     });

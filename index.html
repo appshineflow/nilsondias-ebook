@@ -188,21 +188,13 @@ footer a{color:var(--muted);text-decoration:none}
       <div class="avatars"><i>MR</i><i>JS</i><i>CA</i><i>+</i></div>
       <span>+3.000 famílias já aplicando a estratégia</span>
     </div>
-    <div class="price-row fu d2">
-      <span class="price-old">De R$ 148</span>
-      <span class="price-new">R$ 68</span>
-      <span class="price-badge">54% OFF</span>
-    </div>
     <div class="micro fu d3">
       <span><b>✔</b> Não precisa inglês</span>
       <span><b>✔</b> Começa com pouco dinheiro</span>
       <span><b>✔</b> Leitura em 40 min</span>
       <span><b>✔</b> Passo a passo</span>
     </div>
-    <a href="https://pay.hotmart.com/T100631735T?checkoutMode=10" class="cta-btn fu d3" id="cta-hero">
-      QUERO PROTEGER MEU DINHEIRO EM DÓLAR
-    </a>
-    <p class="guarantee fu d4">🔒 Garantia de 7 dias · Acesso imediato após pagamento</p>
+    <p class="fu d4" style="text-align:center;font-size:.85rem;color:var(--muted);margin-top:1rem"><a href="#cta-after-video" style="color:var(--gold-light);font-weight:700;text-decoration:none">↓ Saiba como proteger seu patrimônio</a></p>
   </div>
 </section>
 
@@ -249,6 +241,24 @@ footer a{color:var(--muted);text-decoration:none}
           <path d="M45 24 27 14v20" fill="white"/>
         </svg>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA APÓS VÍDEO -->
+<section id="cta-after-video" style="background:radial-gradient(ellipse 70% 40% at 50% 50%,rgba(0,196,140,.06),transparent 70%);padding:48px 0;text-align:center">
+  <div class="container">
+    <div class="price-anchor-box" style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px;padding:28px 24px">
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:.4rem">De <del style="color:var(--red)">R$ 148</del> por apenas:</p>
+      <p style="font-size:clamp(2.2rem,5.5vw,2.8rem);font-weight:700;color:var(--gold-light);line-height:1;margin:.2rem 0 .4rem">R$ 68</p>
+      <p style="font-size:.75rem;color:var(--muted);margin-bottom:1rem">Pagamento único · Acesso imediato · Sem mensalidade</p>
+
+      <a href="https://pay.hotmart.com/T100631735T?checkoutMode=10" class="cta-btn" id="cta-hero">
+        QUERO PROTEGER MEU DINHEIRO EM DÓLAR
+      </a>
+
+      <p class="guarantee">🔒 Garantia de 7 dias · Acesso imediato após pagamento</p>
+      <p style="font-size:.72rem;color:var(--muted);margin-top:.8rem">⚡ Apenas <span id="cta-remaining-top" style="color:#ff6b6b;font-weight:700">77</span> vagas neste lote</p>
     </div>
   </div>
 </section>
@@ -519,6 +529,7 @@ footer a{color:var(--muted);text-decoration:none}
     var remainingEl=document.getElementById('lot-remaining');
     var barEl=document.getElementById('lot-bar-fill');
     var ctaRemainingEl=document.getElementById('cta-remaining');
+    var ctaRemainingTopEl=document.getElementById('cta-remaining-top');
     var badgeEl=document.querySelector('.lot-badge');
 
     if(lotNumEl)lotNumEl.textContent=data.lotNum;
@@ -527,6 +538,7 @@ footer a{color:var(--muted);text-decoration:none}
     if(remainingEl)remainingEl.textContent=remaining;
     if(barEl)barEl.style.width=percentage+'%';
     if(ctaRemainingEl)ctaRemainingEl.textContent=remaining;
+    if(ctaRemainingTopEl)ctaRemainingTopEl.textContent=remaining;
 
     if(badgeEl){
       badgeEl.classList.remove('lot-pop');
@@ -693,7 +705,7 @@ footer a{color:var(--muted);text-decoration:none}
   // CTA Sticky Mobile - aparece após scrollar passado do primeiro CTA
   (function(){
     var stickyBtn=document.getElementById('cta-sticky');
-    var firstCta=document.getElementById('cta-hero');
+    var firstCta=document.getElementById('cta-after-video');
     var shown=false;
 
     if(!stickyBtn||!firstCta)return;

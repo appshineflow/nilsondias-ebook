@@ -416,13 +416,25 @@ footer a{color:var(--muted);text-decoration:none}
 
   function getLotData(){
     var stored=localStorage.getItem(LK);
+    var now=Date.now();
+    var day=86400000;
+
     if(stored){
       var data=JSON.parse(stored);
-      if(data.lotNum<=3)return data;
+
+      // Se voltou após 2+ horas, decrementa vagas (urgência de retorno)
+      if(data.lastVisit&&(now-data.lastVisit)>7200000){
+        var decrease=Math.floor((now-data.lastVisit)/7200000);
+        data.current=Math.max(3423-decrease*2,3400);
+        data.lastVisit=now;
+        localStorage.setItem(LK,JSON.stringify(data));
+      }
+
+      return data;
     }
 
-    // Dados iniciais
-    var data={lotNum:3,current:3423};
+    // Dados iniciais: 77 vagas restantes (3423/3500)
+    var data={lotNum:3,current:3423,lastVisit:now};
     localStorage.setItem(LK,JSON.stringify(data));
     return data;
   }
@@ -430,6 +442,7 @@ footer a{color:var(--muted);text-decoration:none}
   function updateLotData(increment){
     var data=getLotData();
     data.current+=increment;
+    data.lastVisit=Date.now();
 
     // Verifica se lotes anteriores estão completos
     if(data.lotNum===1){

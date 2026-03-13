@@ -35,16 +35,16 @@ body{background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacS
 /* Barra de urgência removida para não desvendar */
 
 /* Toast Notifications */
-.toast-container{position:fixed;bottom:20px;left:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
-@media(max-width:500px){.toast-container{bottom:10px;left:10px;right:10px}}
-.toast{background:rgba(15,20,35,.95);border:1px solid rgba(201,148,58,.3);border-left:3px solid var(--gold);border-radius:8px;padding:12px 14px;max-width:320px;box-shadow:0 8px 24px rgba(0,0,0,.5);pointer-events:auto;animation:slideIn .4s ease;backdrop-filter:blur(10px)}
+.toast-container{position:fixed;top:20px;left:20px;z-index:9999;display:flex;flex-direction:column;gap:6px;pointer-events:none}
+@media(max-width:500px){.toast-container{top:10px;left:10px;right:10px}}
+.toast{background:rgba(15,20,35,.95);border:1px solid rgba(201,148,58,.25);border-left:3px solid var(--gold);border-radius:6px;padding:8px 10px;max-width:280px;box-shadow:0 4px 16px rgba(0,0,0,.4);pointer-events:auto;animation:slideIn .4s ease;backdrop-filter:blur(10px)}
 .toast.removing{animation:slideOut .4s ease forwards}
-.toast-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.toast-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--bg)}
-.toast-content{font-size:.8rem;color:var(--white);line-height:1.4}
+.toast-header{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.toast-avatar{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--bg)}
+.toast-content{font-size:.7rem;color:var(--white);line-height:1.3}
 .toast-content strong{color:var(--gold-light);font-weight:600}
-.toast-time{font-size:.65rem;color:var(--muted);margin-top:2px}
-.toast-pulse{position:absolute;top:8px;right:8px;width:8px;height:8px;background:#00c48c;border-radius:50%;animation:pulse 2s infinite}
+.toast-time{font-size:.6rem;color:var(--muted);margin-top:1px}
+.toast-pulse{position:absolute;top:6px;right:6px;width:6px;height:6px;background:#00c48c;border-radius:50%;animation:pulse 2s infinite}
 
 /* Sale Celebration */
 .sale-celebration{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10000;pointer-events:none;font-size:3rem;font-weight:700;color:var(--gold-light);text-shadow:0 0 20px rgba(201,148,58,.8),0 0 40px rgba(201,148,58,.6);animation:celebratePop 1.2s ease forwards}
@@ -53,13 +53,13 @@ body{background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacS
 @keyframes emojiBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
 
 /* CTA Sticky Mobile */
-.cta-sticky{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:12px 16px;background:linear-gradient(to top,var(--bg) 0%,rgba(6,8,16,.95) 100%);border-top:1px solid var(--border);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;transform:translateY(100%)}
+.cta-sticky{position:fixed;top:0;left:0;right:0;z-index:9998;padding:8px 16px;background:linear-gradient(to bottom,var(--bg) 0%,rgba(6,8,16,.98) 100%);border-bottom:1px solid var(--border);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;transform:translateY(-100%);box-shadow:0 4px 20px rgba(0,0,0,.3)}
 .cta-sticky.visible{opacity:1;visibility:visible;transform:translateY(0)}
-.cta-sticky .cta-btn{max-width:100%;margin:0;font-size:.85rem;padding:14px 20px;box-shadow:0 4px 16px rgba(0,196,140,.2)}
+.cta-sticky .cta-btn{max-width:100%;margin:0;font-size:.75rem;padding:10px 16px;box-shadow:0 2px 8px rgba(0,196,140,.15);background:linear-gradient(135deg,#00c48c,var(--green));min-height:40px}
 @media(min-width:500px){.cta-sticky{display:none}}
 
-@keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
-@keyframes slideOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-20px)}}
+@keyframes slideIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-10px)}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.1)}}
 
 .container{max-width:640px;margin:0 auto;padding:0 18px}
@@ -249,7 +249,7 @@ footer a{color:var(--muted);text-decoration:none}
 <section id="cta-after-video" style="background:radial-gradient(ellipse 70% 40% at 50% 50%,rgba(0,196,140,.06),transparent 70%);padding:48px 0;text-align:center">
   <div class="container">
     <div class="price-anchor-box" style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px;padding:28px 24px">
-      <p style="font-size:.85rem;color:var(--muted);margin-bottom:.4rem">De <del style="color:var(--red)">R$ 148</del> por apenas:</p>
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:.4rem">Segundo Lote por apenas:</p>
       <p style="font-size:clamp(2.2rem,5.5vw,2.8rem);font-weight:700;color:var(--gold-light);line-height:1;margin:.2rem 0 .4rem">R$ 68</p>
       <p style="font-size:.75rem;color:var(--muted);margin-bottom:1rem">Pagamento único · Acesso imediato · Sem mensalidade</p>
 
@@ -475,7 +475,7 @@ footer a{color:var(--muted);text-decoration:none}
       // Se voltou após 2+ horas, decrementa vagas (urgência de retorno)
       if(data.lastVisit&&(now-data.lastVisit)>7200000){
         var decrease=Math.floor((now-data.lastVisit)/7200000);
-        data.current=Math.max(3423-decrease*2,3400);
+        data.current=Math.max(3428-decrease*2,3420);
         data.lastVisit=now;
         localStorage.setItem(LK,JSON.stringify(data));
       }
@@ -483,8 +483,8 @@ footer a{color:var(--muted);text-decoration:none}
       return data;
     }
 
-    // Dados iniciais: 77 vagas restantes (3423/3500)
-    var data={lotNum:3,current:3423,lastVisit:now};
+    // Dados iniciais: 72 vagas restantes (3428/3500)
+    var data={lotNum:3,current:3428,lastVisit:now};
     localStorage.setItem(LK,JSON.stringify(data));
     return data;
   }

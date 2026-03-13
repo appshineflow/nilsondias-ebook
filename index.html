@@ -93,7 +93,7 @@ h1{font-size:clamp(1.6rem,5.5vw,2.8rem);font-weight:800;line-height:1.15;letter-
 #video-section{padding:0 0 56px;background:linear-gradient(180deg,var(--bg2),var(--bg3) 50%,var(--bg2))}
 .video-wrap{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--border);box-shadow:0 24px 64px rgba(0,0,0,.55);background:#000;max-width:300px;margin:0 auto;aspect-ratio:9/16;cursor:pointer}
 .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.yt-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.yt-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
 .yt-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);transition:background .2s}
 .yt-play:hover{background:rgba(0,0,0,.15)}
 .yt-play svg{width:64px;height:64px;filter:drop-shadow(0 2px 12px rgba(0,0,0,.6))}
@@ -203,6 +203,34 @@ footer a{color:var(--muted);text-decoration:none}
       QUERO PROTEGER MEU DINHEIRO EM DÓLAR
     </a>
     <p class="guarantee fu d4">🔒 Garantia de 7 dias · Acesso imediato após pagamento</p>
+  </div>
+</section>
+
+<!-- OBJEÇÕES / MEDO -->
+<section id="objecoes-detailed" style="background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(230,82,82,.06),transparent 70%);padding:48px 0">
+  <div class="container">
+    <div class="section-head">
+      <h2>Você sente que está <span class="gold">perdendo dinheiro</span> todo mês?</h2>
+      <p>A inflação está comendo seu patrimônio silenciosamente. Enquanto você trabalha duro, o real desvaloriza.</p>
+      <div class="divider"></div>
+    </div>
+
+    <div style="max-width:500px;margin:0 auto;background:rgba(230,82,82,.08);border:1px solid rgba(230,82,82,.2);border-radius:12px;padding:20px 18px">
+      <p style="font-size:.9rem;color:var(--white);line-height:1.6;margin-bottom:12px">
+        <span style="color:#ff6b6b;font-weight:700">⚠️ Duro de aceitar mas verdade é:</span>
+      </p>
+      <ul style="list-style:none;margin:0 0 12px 16px;padding:0">
+        <li style="font-size:.85rem;color:var(--muted);line-height:1.5">• O real já perdeu <strong>mais de 30% do valor</strong> nos últimos 5 anos</li>
+        <li style="font-size:.85rem;color:var(--muted);line-height:1.5">• Sua poupancia perde valor <strong>todos os dias</strong> enquanto você dorme</li>
+        <li style="font-size:.85rem;color:var(--muted);line-height:1.5">• Seus investimentos em reais podem <strong>mal rendersizar</strong> nos próximos anos</li>
+      </ul>
+    </div>
+
+    <div style="text-align:center;margin-top:1.6rem">
+      <p style="font-size:1.1rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem">A boa notícia?</p>
+      <p style="font-size:.9rem;color:var(--white);line-height:1.6">Este guia mostra o passo a passo para <strong>blindar seu patrimônio</strong> da instabilidade brasileira e construir renda em moedas fortes. Em menos de 40 minutos de leitura.</p>
+      <a href="#cta-final" style="display:inline-block;color:var(--green);font-weight:700;text-decoration:underline;margin-top:.8rem">Quero proteger meu patrimônio →</a>
+    </div>
   </div>
 </section>
 
@@ -333,35 +361,7 @@ footer a{color:var(--muted);text-decoration:none}
   </div>
 </section>
 
-<!-- OBJEÇÕES / MEDO -->
-<section id="objecoes-detailed" style="background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(230,82,82,.06),transparent 70%);padding:48px 0">
-  <div class="container">
-    <div class="section-head">
-      <h2>Você sente que está <span class="gold">perdendo dinheiro</span> todo mês?</h2>
-      <p>A inflação está comendo seu patrimônio silenciosamente. Enquanto você trabalha duro, o real desvaloriza.</p>
-      <div class="divider"></div>
-    </div>
-
-    <div style="max-width:500px;margin:0 auto;background:rgba(230,82,82,.08);border:1px solid rgba(230,82,82,.2);border-radius:12px;padding:20px 18px">
-      <p style="font-size:.9rem;color:var(--white);line-height:1.6;margin-bottom:12px">
-        <span style="color:#ff6b6b;font-weight:700">⚠️ Duro de aceitar mas verdade é:</span>
-      </p>
-      <ul style="list-style:none;margin:0 0 12px 16px;padding:0">
-        <li style="font-size:.85rem;color:var(--muted);line-height:1.5">• O real já perdeu <strong>mais de 30% do valor</strong> nos últimos 5 anos</li>
-        <li style="font-size:.85rem;color:var(--muted);line-height:1.5">• Sua poupancia perde valor <strong>todos os dias</strong> enquanto você dorme</li>
-        <li style="font-size:.85rem;color:var(--muted);line-height:1.5">• Seus investimentos em reais podem <strong>mal rendersizar</strong> nos próximos anos</li>
-      </ul>
-    </div>
-
-    <div style="text-align:center;margin-top:1.6rem">
-      <p style="font-size:1.1rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem">A boa notícia?</p>
-      <p style="font-size:.9rem;color:var(--white);line-height:1.6">Este guia mostra o passo a passo para <strong>blindar seu patrimônio</strong> da instabilidade brasileira e construir renda em moedas fortes. Em menos de 40 minutos de leitura.</p>
-      <a href="#cta-final" style="display:inline-block;color:var(--green);font-weight:700;text-decoration:underline;margin-top:.8rem">Quero proteger meu patrimônio →</a>
-    </div>
-  </div>
-</section>
-
-<section id="para-quem">
+<section id="autor">
   <div class="container">
     <div class="author-inner">
       <div class="author-photo">
@@ -701,7 +701,8 @@ footer a{color:var(--muted);text-decoration:none}
 
     function checkSticky(){
       var rect=firstCta.getBoundingClientRect();
-      var isPast=rect.bottom<0;
+      // Mostra sticky quando o topo do primeiro CTA passar do topo da viewport
+      var isPast=rect.top<0;
 
       if(isPast&&!shown){
         stickyBtn.classList.add('visible');
